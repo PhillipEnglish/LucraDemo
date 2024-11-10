@@ -7,27 +7,37 @@
 
 import Foundation
 
-/// A simple network client for fetching and decoding JSON data.
-/// Use this to send a network request and get a decoded response in one step.
-///
-/// - Example:
-/// ```swift
-/// let request = URLRequest(url: URL(string: "https://api.example.com/data")!)
-/// let result: MyModel = try await NetworkClient.fetch(request: request)
-/// ```
-///
-/// - Note: The type `T` must conform to `Codable` to support decoding.
-///
-/// - Throws: An error if the request fails or if the data can't be decoded.
+import Foundation
+
 class NetworkClient {
-    /// Fetches data from a URLRequest and decodes it to a given Codable type.
-    ///
-    /// - Parameter request: The `URLRequest` to send.
-    /// - Returns: A decoded object of type `T`.
-    /// - Throws: An error if fetching or decoding fails.
+    private static let cache = URLCache(memoryCapacity: 50 * 1024 * 1024, diskCapacity: 100 * 1024 * 1024, diskPath: nil)
+    
     static func fetch<T: Codable>(request: URLRequest) async throws -> T {
-        let (data, _) = try await URLSession.shared.data(for: request)
-        let decoder = JSONDecoder()
-        return try decoder.decode(T.self, from: data)
+        if let cachedResponse = cache.cachedResponse(for: request) {
+            let decoder = JSONDecoder()
+            return try decoder.decode(T.self, from: cachedResponse.data)
+        }
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            Task.detached {
+                do {
+                    let (data, response) = try await URLSession.shared.data(for: request)
+                    guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                        throw URLError(.badServerResponse)
+                    }
+                    
+                    let cachedData = CachedURLResponse(response: response, data: data)
+                    cache.storeCachedResponse(cachedData, for: request)
+                    
+                    let decoder = JSONDecoder()
+                    let decodedData = try decoder.decode(T.self, from: data)
+                    continuation.resume(returning: decodedData)
+                } catch {
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
     }
 }
+
+

@@ -11,7 +11,7 @@ import SwiftUI
 struct LucraDemoApp: App {
     var body: some Scene {
         WindowGroup {
-            AlbumSearchView()
+            AlbumSearchView(viewModel: AlbumViewModel())
         }
     }
 }

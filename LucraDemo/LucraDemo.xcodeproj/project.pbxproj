@@ -15,6 +15,13 @@
 		29AFADC22CE00E4E0020F465 /* LucraDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFADC12CE00E4E0020F465 /* LucraDemoUITests.swift */; };
 		29AFADC42CE00E4E0020F465 /* LucraDemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFADC32CE00E4E0020F465 /* LucraDemoUITestsLaunchTests.swift */; };
 		29AFADD62CE143490020F465 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFADD52CE143490020F465 /* Extensions.swift */; };
+		29AFADD82CE14F230020F465 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFADD72CE14F230020F465 /* NetworkClient.swift */; };
+		29AFADDA2CE15ACA0020F465 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFADD92CE15ACA0020F465 /* Album.swift */; };
+		29AFADDC2CE15B380020F465 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFADDB2CE15B380020F465 /* APIService.swift */; };
+		29AFADDE2CE15DB40020F465 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFADDD2CE15DB40020F465 /* AlbumViewModel.swift */; };
+		29AFADE02CE164190020F465 /* FavoriteAlbumsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFADDF2CE164190020F465 /* FavoriteAlbumsView.swift */; };
+		29AFADE22CE165BD0020F465 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFADE12CE165BD0020F465 /* GalleryView.swift */; };
+		29AFADE42CE166CF0020F465 /* AlbumCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFADE32CE166CF0020F465 /* AlbumCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +53,13 @@
 		29AFADC12CE00E4E0020F465 /* LucraDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LucraDemoUITests.swift; sourceTree = "<group>"; };
 		29AFADC32CE00E4E0020F465 /* LucraDemoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LucraDemoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		29AFADD52CE143490020F465 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		29AFADD72CE14F230020F465 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		29AFADD92CE15ACA0020F465 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
+		29AFADDB2CE15B380020F465 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		29AFADDD2CE15DB40020F465 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
+		29AFADDF2CE164190020F465 /* FavoriteAlbumsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteAlbumsView.swift; sourceTree = "<group>"; };
+		29AFADE12CE165BD0020F465 /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
+		29AFADE32CE166CF0020F465 /* AlbumCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +150,7 @@
 		29AFADD02CE142C90020F465 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				29AFADD92CE15ACA0020F465 /* Album.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -144,6 +159,9 @@
 			isa = PBXGroup;
 			children = (
 				29AFADA82CE00E4D0020F465 /* AlbumSearchView.swift */,
+				29AFADDF2CE164190020F465 /* FavoriteAlbumsView.swift */,
+				29AFADE12CE165BD0020F465 /* GalleryView.swift */,
+				29AFADE32CE166CF0020F465 /* AlbumCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -151,6 +169,7 @@
 		29AFADD22CE142E00020F465 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				29AFADDD2CE15DB40020F465 /* AlbumViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -158,6 +177,8 @@
 		29AFADD32CE142E90020F465 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				29AFADD72CE14F230020F465 /* NetworkClient.swift */,
+				29AFADDB2CE15B380020F465 /* APIService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -302,7 +323,14 @@
 			files = (
 				29AFADA92CE00E4D0020F465 /* AlbumSearchView.swift in Sources */,
 				29AFADD62CE143490020F465 /* Extensions.swift in Sources */,
+				29AFADE02CE164190020F465 /* FavoriteAlbumsView.swift in Sources */,
 				29AFADA72CE00E4D0020F465 /* LucraDemoApp.swift in Sources */,
+				29AFADDE2CE15DB40020F465 /* AlbumViewModel.swift in Sources */,
+				29AFADD82CE14F230020F465 /* NetworkClient.swift in Sources */,
+				29AFADDC2CE15B380020F465 /* APIService.swift in Sources */,
+				29AFADE22CE165BD0020F465 /* GalleryView.swift in Sources */,
+				29AFADE42CE166CF0020F465 /* AlbumCardView.swift in Sources */,
+				29AFADDA2CE15ACA0020F465 /* Album.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
