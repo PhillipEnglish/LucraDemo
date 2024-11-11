@@ -51,7 +51,6 @@ The app uses a clean MVVM (Model-View-ViewModel) architecture to separate busine
 No third-party libraries are used in this project. Native Swift tools like SwiftData and `Async/Await` provided all necessary functionality for persistence, concurrency, and UI responsiveness.
 
 
+https://github.com/user-attachments/assets/99cc9507-19a3-4746-afe5-4b7cec61978a
 
-
-https://github.com/user-attachments/assets/f8cef6f1-96a3-420d-8c93-459beedbc2e9
 
