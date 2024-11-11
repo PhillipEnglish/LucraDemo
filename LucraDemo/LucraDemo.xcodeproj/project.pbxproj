@@ -60,6 +60,7 @@
 		29AFADDF2CE164190020F465 /* FavoriteAlbumsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteAlbumsView.swift; sourceTree = "<group>"; };
 		29AFADE12CE165BD0020F465 /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
 		29AFADE32CE166CF0020F465 /* AlbumCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCardView.swift; sourceTree = "<group>"; };
+		29AFADE52CE18B420020F465 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +111,7 @@
 		29AFADA52CE00E4D0020F465 /* LucraDemo */ = {
 			isa = PBXGroup;
 			children = (
+				29AFADE52CE18B420020F465 /* Info.plist */,
 				29AFADD02CE142C90020F465 /* Model */,
 				29AFADD12CE142D70020F465 /* View */,
 				29AFADD22CE142E00020F465 /* ViewModel */,
@@ -497,6 +499,7 @@
 				DEVELOPMENT_TEAM = BBMX4YUNT7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LucraDemo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -526,6 +529,7 @@
 				DEVELOPMENT_TEAM = BBMX4YUNT7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LucraDemo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
