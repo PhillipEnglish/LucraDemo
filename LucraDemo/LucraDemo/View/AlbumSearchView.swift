@@ -66,21 +66,12 @@ struct AlbumSearchView: View {
                     }
                 }
                 .searchable(text: $searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search albums")
+                .onSubmit(of: .search) {
+                    viewModel.fetchAlbums(for: searchQuery)
+                }
                 .onChange(of: searchQuery) { newQuery in
-                    searchTask?.cancel()
-                    
-                    if newQuery.count > 1 && newQuery != lastQuery {
-                        searchTask = Task {
-                            try? await Task.sleep(nanoseconds: 300 * 1_000_000)
-                            if !Task.isCancelled {
-                                lastQuery = newQuery
-                                viewModel.fetchAlbums(for: newQuery)
-                            }
-                        }
-                    } else if newQuery.count <= 1 {
+                    if newQuery.count < 1 {
                         viewModel.resetAlbums()
-                    } else if newQuery == lastQuery {
-                        UIApplication.shared.endEditing()
                     }
                 }
                 .sheet(isPresented: $showingFavorites) {
