@@ -12,23 +12,11 @@ struct Album: Codable, Identifiable {
     let id: String
     let title: String
     let images: [Image]
-    
-    /// Custom coding keys to match the Imgur API's JSON structure.
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case title
-        case images
-    }
 }
 
 /// Represents an individual image in an album, with an ID and URL link.
 struct Image: Codable, Identifiable {
     let id: String
     let link: URL
-    
-    /// Custom coding keys for the Image structure.
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case link
-    }
+    let type: String
 }
