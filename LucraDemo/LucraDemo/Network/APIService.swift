@@ -8,7 +8,7 @@
 import Foundation
 
 /// A protocol that defines the methods for fetching albums from the Imgur API.
-protocol NetworkingServiceProtocol {
+protocol APIServiceProtocol {
     /// Fetches albums based on a given search query.
     /// - Parameter query: The search term used to find relevant albums.
     /// - Returns: An array of `Album` objects that match the query.
@@ -16,17 +16,17 @@ protocol NetworkingServiceProtocol {
     func fetchAlbums(for query: String) async throws -> [Album]
 }
 
-class NetworkingService: NetworkingServiceProtocol {
+class APIService: APIServiceProtocol {
     private static let baseURL = "https://api.imgur.com/3/gallery/search"
     private static let clientID = "2d086962f60c89e"
     
     func fetchAlbums(for query: String) async throws -> [Album] {
-        guard let url = NetworkingService.constructURL(with: query) else {
+        guard let url = APIService.constructURL(with: query) else {
             throw URLError(.badURL)
         }
         
         var request = URLRequest(url: url)
-        request.setValue("Client-ID \(NetworkingService.clientID)", forHTTPHeaderField: "Authorization")
+        request.setValue("Client-ID \(APIService.clientID)", forHTTPHeaderField: "Authorization")
         
         // Debug: Print request details
         print("Making request to:", request.url?.absoluteString ?? "")

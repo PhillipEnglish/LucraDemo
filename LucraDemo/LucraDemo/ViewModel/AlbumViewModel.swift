@@ -20,12 +20,12 @@ protocol AlbumViewModelProtocol: Observable {
 
 @Observable
 class AlbumViewModel: AlbumViewModelProtocol {
-    private let networkingService: NetworkingServiceProtocol
+    private let networkingService: APIServiceProtocol
     var albums: [Album] = []
     var isLoading: Bool = false
     var errorMessage: String?
 
-    init(networkingService: NetworkingServiceProtocol = NetworkingService()) {
+    init(networkingService: APIServiceProtocol = APIService()) {
         self.networkingService = networkingService
     }
     

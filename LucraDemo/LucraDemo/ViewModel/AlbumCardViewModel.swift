@@ -29,13 +29,6 @@ class AlbumCardViewModel: AlbumCardViewModelProtocol {
         return albumPredicate
        }
     
-//    private var albumPredicate: Predicate<Album> {
-//        let predicate = #Predicate<Album> { storedAlbum in
-//            storedAlbum.id == album.id
-//        }
-//        return predicate
-//    }
-    
     init(album: Album, modelContext: ModelContext) {
         self.album = album
         self.modelContext = modelContext

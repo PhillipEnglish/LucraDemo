@@ -75,7 +75,8 @@ struct AlbumSearchView: View {
                     }
                 }
                 .sheet(isPresented: $showingFavorites) {
-                    FavoritesListView(viewModel: viewModel)
+                    //A last minute thought before submitting this project: modelContext might be better suited as an EnvironmentObject, rather than passing around in initializers
+                    FavoritesListView(viewModel: FavoritesViewModel(modelContext: modelContext))
                 }
                 .alert(isPresented: $showAlert) {
                     Alert(title: Text("Error"), message: Text(viewModel.errorMessage ?? "An unknown error occurred."), dismissButton: .default(Text("OK")))
@@ -94,10 +95,3 @@ struct AlbumSearchView: View {
         }
     }
 }
-
-
-//struct AlbumSearchView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AlbumSearchView(viewModel: AlbumViewModel())
-//    }
-//}
