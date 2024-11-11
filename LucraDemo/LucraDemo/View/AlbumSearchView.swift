@@ -24,16 +24,19 @@ struct AlbumSearchView: View {
                         .foregroundColor(.secondary)
                         .padding()
                 } else {
-                    List {
-                        ForEach(viewModel.albums, id: \.id) { album in
-                            NavigationLink(destination: GalleryView(album: album)) {
-                                AlbumCardView(album: album)
-                                    .cornerRadius(10)
-                                    .shadow(radius: 5)
+                    ScrollView {
+                        LazyVStack(spacing: 10) {
+                            ForEach(viewModel.albums, id: \.id) { album in
+                                NavigationLink(destination: GalleryView(album: album)) {
+                                    AlbumCardView(album: album)
+                                        .cornerRadius(10)
+                                        .shadow(radius: 5)
+                                        .padding(.horizontal)
+                                }
                             }
                         }
+                        .padding(.vertical)
                     }
-                    .listStyle(.plain)
                 }
             }
             .navigationTitle("Imgur Albums")
@@ -61,8 +64,10 @@ struct AlbumSearchView: View {
                 }
             }
         }
+        .background(Color.lucraRoyalBlue)
     }
 }
+
 
 
 struct AlbumSearchView_Previews: PreviewProvider {
