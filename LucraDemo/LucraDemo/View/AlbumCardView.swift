@@ -8,51 +8,50 @@
 import SwiftUI
 
 struct AlbumCardView: View {
-    let album: Album
+    let viewModel: AlbumCardViewModel
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .center, spacing: 10) {
             // Display the first image as the album cover
-            if let coverURL = album.images.first?.link {
-                AsyncImage(url: coverURL, transaction: Transaction(animation: .easeInOut)) { phase in
-                    switch phase {
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .cornerRadius(10)
-                    case .failure(_):
-                        EmptyView()
-                    case .empty:
-                        ProgressView()
-                            .frame(width: 100, height: 150)
-                            .background(Color.gray)
-                            .cornerRadius(10)
-                    @unknown default:
-                        ProgressView()
-                            .frame(width: 100, height: 150)
-                            .background(Color.gray)
-                            .cornerRadius(10)
-                    }
+            AsyncImage(url: viewModel.albumCoverURL()) { phase in
+                switch phase {
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 200, height: 200)
+                        .cornerRadius(10)
+                        .transition(.scale.combined(with: .opacity))
+                        .transition(.scale.combined(with: .opacity))
+                        .frame(width: 200, height: 200)
+                        .cornerRadius(10)
+                case .failure(_):
+                    EmptyView()
+                case .empty:
+                    ProgressView()
+                        .frame(width: 100, height: 150)
+                        .background(Color.gray)
+                        .cornerRadius(10)
+                @unknown default:
+                    ProgressView()
+                        .frame(width: 100, height: 150)
+                        .background(Color.gray)
+                        .cornerRadius(10)
                 }
             }
-            Text(album.title)
-                .font(.headline)
-                .foregroundColor(.primary)
-                .lineLimit(2)
-                .padding(.top, 10)
-                .padding([.leading, .trailing], 5)
-
-            // Display additional album info if desired
-            Text("\(album.images.count) images")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-            .padding(.vertical, 5)
+                Text(viewModel.albumCardText())
+                    .font(.headline)
+                    .foregroundColor(.primary)
+                    .lineLimit(2)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding([.leading, .trailing], 5)
+                    .padding(.top, 5)
         }
-        .padding()
+        .padding(.horizontal, 8).padding(.vertical, 10)
         .background(Color.lucraBlue)
         .cornerRadius(10)
         .shadow(radius: 4)
     }
 }
+
+

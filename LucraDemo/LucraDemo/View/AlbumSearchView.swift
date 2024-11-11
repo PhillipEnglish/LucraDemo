@@ -12,39 +12,54 @@ struct AlbumSearchView: View {
     @State private var searchQuery = ""
     @State private var showingFavorites = false
     @State private var showAlert = false
-
+    @State private var searchTask: Task<Void, Never>? = nil
+    
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    
     var body: some View {
         NavigationView {
-            Group {
+            VStack {
                 if viewModel.isLoading {
-                    ProgressView("Loading albums…")
+                    ProgressView("Loading albums")
                         .padding()
                 } else if viewModel.albums.isEmpty {
-                    Text("No albums found. Try a different search.")
-                        .foregroundColor(.secondary)
+                    Text("No albums found")
+                        .foregroundColor(.blue)
                         .padding()
                 } else {
                     ScrollView {
-                        LazyVStack(spacing: 10) {
-                            ForEach(viewModel.albums, id: \.id) { album in
+                        LazyVStack {
+                            ForEach(viewModel.albums) { album in
                                 NavigationLink(destination: GalleryView(album: album)) {
-                                    AlbumCardView(album: album)
+                                    AlbumCardView(viewModel: AlbumCardViewModel(album: album))
                                         .cornerRadius(10)
                                         .shadow(radius: 5)
-                                        .padding(.horizontal)
                                 }
                             }
                         }
-                        .padding(.vertical)
+                        .padding(.horizontal)
                     }
                 }
             }
             .navigationTitle("Imgur Albums")
             .searchable(text: $searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search albums")
             .onChange(of: searchQuery) { newQuery in
-                viewModel.searchQuery = newQuery
-                Task {
-                    await viewModel.fetchAlbums()
+                if newQuery.count > 1 {
+                    // Cancel any ongoing task
+                    searchTask?.cancel()
+                    
+                    // Start a new throttled search task
+                    searchTask = Task {
+                        // Wait for a short delay to throttle search requests
+                        try? await Task.sleep(nanoseconds: 300 * 1_000_000)  // 300 milliseconds
+                        if !Task.isCancelled {
+                            await viewModel.fetchAlbums(for: newQuery)
+                        }
+                    }
                 }
             }
             .toolbar {
@@ -64,9 +79,9 @@ struct AlbumSearchView: View {
                 }
             }
         }
-        .background(Color.lucraRoyalBlue)
     }
 }
+
 
 
 

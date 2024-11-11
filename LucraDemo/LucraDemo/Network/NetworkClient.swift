@@ -7,37 +7,35 @@
 
 import Foundation
 
-import Foundation
-
 class NetworkClient {
-    private static let cache = URLCache(memoryCapacity: 50 * 1024 * 1024, diskCapacity: 100 * 1024 * 1024, diskPath: nil)
+    private static let cache = URLCache.shared
     
     static func fetch<T: Codable>(request: URLRequest) async throws -> T {
+        let decoder = JSONDecoder()
+        
+        // Debug: Check if using cached response
         if let cachedResponse = cache.cachedResponse(for: request) {
-            let decoder = JSONDecoder()
+            print("Using cached response")
             return try decoder.decode(T.self, from: cachedResponse.data)
         }
         
-        return try await withCheckedThrowingContinuation { continuation in
-            Task.detached {
-                do {
-                    let (data, response) = try await URLSession.shared.data(for: request)
-                    guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                        throw URLError(.badServerResponse)
-                    }
-                    
-                    let cachedData = CachedURLResponse(response: response, data: data)
-                    cache.storeCachedResponse(cachedData, for: request)
-                    
-                    let decoder = JSONDecoder()
-                    let decodedData = try decoder.decode(T.self, from: data)
-                    continuation.resume(returning: decodedData)
-                } catch {
-                    continuation.resume(throwing: error)
-                }
-            }
+        // Fetch from network
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw URLError(.badServerResponse)
         }
+        
+        // Debug: Validate status code and response
+        guard httpResponse.statusCode == 200 else {
+            print("HTTP Error:", httpResponse.statusCode)
+            throw URLError(.badServerResponse)
+        }
+        
+        // Store in cache
+        let cachedData = CachedURLResponse(response: response, data: data)
+        cache.storeCachedResponse(cachedData, for: request)
+        
+        // Decode JSON response
+        return try decoder.decode(T.self, from: data)
     }
 }
-
-

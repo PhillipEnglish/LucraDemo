@@ -8,91 +8,51 @@
 import Foundation
 import SwiftData
 
-/// A protocol defining the requirements for an album search view model, isolated to the main actor.
-@MainActor
+/// A protocol defining the requirements for an album search view model.
 protocol AlbumViewModelProtocol: Observable {
-    var albums: [Album] { get }
-    var searchQuery: String { get set }
-    var isLoading: Bool { get }
-    var errorMessage: String? { get }
+    var albums: [Album] { get set }
+    //var searchQuery: String { get set }
+    var isLoading: Bool { get set }
+    var errorMessage: String? { get set }
     
-    func fetchAlbums() async
+    func fetchAlbums(for query: String) async
     func resetAlbums()
-    
-    // Favorites Management
-    func isFavorite(_ album: Album) -> Bool
-    func toggleFavorite(for album: Album)
-    func fetchFavorites() -> [Album]
 }
 
 @Observable
 class AlbumViewModel: AlbumViewModelProtocol {
-    
-    // MARK: - Properties
     private let networkingService: NetworkingServiceProtocol
     var albums: [Album] = []
-    var searchQuery: String = ""
     var isLoading: Bool = false
     var errorMessage: String?
-    
-    private let favoritesKey = "favoritedAlbumIDs"
-    private var favoritedAlbumIDs: Set<String> {
-        get {
-            return Set(UserDefaults.standard.stringArray(forKey: favoritesKey) ?? [])
-        }
-        set {
-            UserDefaults.standard.set(Array(newValue), forKey: favoritesKey)
-        }
-    }
-    
-    // MARK: - Initialization
-    
+
     init(networkingService: NetworkingServiceProtocol = NetworkingService()) {
         self.networkingService = networkingService
     }
     
-    // MARK: - Methods
+    func fetchAlbums(for query: String) async {
+        await loadAlbums(for: query)
+    }
     
-    func fetchAlbums() async {
-        guard searchQuery.count > 1 else {
-            resetAlbums()
-            return
-        }
-        
+    func loadAlbums(for query: String) async {
         isLoading = true
-        errorMessage = nil
+        defer {
+            isLoading = false
+        }
         
         do {
-            albums = try await networkingService.fetchAlbums(for: searchQuery)
-            print("Fetched \(albums.count) albums")
+            let newAlbums = try await networkingService.fetchAlbums(for: query)
+            albums = newAlbums.filter { album in
+                guard let firstImage = album.images.first else { return false }
+                return !firstImage.type.hasPrefix("video/")
+            }
         } catch {
             errorMessage = "Failed to load albums. Please try again."
-            print("Error fetching albums: \(error)")
         }
-        
-        isLoading = false
     }
     
     func resetAlbums() {
         albums.removeAll()
-    }
-    
-    // MARK: - Favorites Management
-    
-    func isFavorite(_ album: Album) -> Bool {
-        return favoritedAlbumIDs.contains(album.id)
-    }
-    
-    func toggleFavorite(for album: Album) {
-        if isFavorite(album) {
-            favoritedAlbumIDs.remove(album.id)
-        } else {
-            favoritedAlbumIDs.insert(album.id)
-        }
-    }
-    
-    func fetchFavorites() -> [Album] {
-        return albums.filter { isFavorite($0) }
     }
 }
 
