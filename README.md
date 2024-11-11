@@ -41,10 +41,6 @@ The app uses a clean MVVM (Model-View-ViewModel) architecture to separate busine
 5. **Error Handling**:
     - Basic error handling is built into the networking layer and view models. Alerts inform users of errors with relevant messages if a network or decoding error occurs.
 
-6. **Unit Testing**:
-    - `MockAPIService` facilitates unit testing for view models, allowing independent testing without relying on live network responses.
-    - Tests cover successful data fetching, error handling, and local storage behaviors for view models that interact with the API or SwiftData.
-
 ## Optional Enhancements
 
 - **Favorites Filtering**: Users can view their favorited albums in a separate view, dynamically loaded from SwiftData’s store.
@@ -54,4 +50,8 @@ The app uses a clean MVVM (Model-View-ViewModel) architecture to separate busine
 
 No third-party libraries are used in this project. Native Swift tools like SwiftData and `Async/Await` provided all necessary functionality for persistence, concurrency, and UI responsiveness.
 
+
+
+
+https://github.com/user-attachments/assets/f8cef6f1-96a3-420d-8c93-459beedbc2e9
 
