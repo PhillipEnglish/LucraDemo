@@ -48,7 +48,7 @@ struct AlbumCardView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding([.leading, .trailing], 5)
                     .padding(.top, 5)
-                    .padding(.bottom, viewModel.album.images.isEmpty ? 20 : 0) // Add extra bottom padding if no image
+                   // .padding(.bottom, viewModel.album.images.isEmpty ? 20 : 0) // Add extra bottom padding if no image
             }
             .padding(.horizontal, 8)
             .padding(.vertical, 10)
