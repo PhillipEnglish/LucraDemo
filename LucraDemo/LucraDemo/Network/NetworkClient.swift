@@ -20,7 +20,7 @@ class NetworkClient {
         
         // Fetch from network
         let (data, response) = try await URLSession.shared.data(for: request)
-         guard let httpResponse = response as? HTTPURLResponse else {
+        guard let httpResponse = response as? HTTPURLResponse else {
             throw URLError(.badServerResponse)
         }
         

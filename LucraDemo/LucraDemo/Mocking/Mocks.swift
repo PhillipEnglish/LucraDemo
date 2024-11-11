@@ -27,11 +27,11 @@ class MockAlbumViewModel: AlbumViewModelProtocol {
     var isLoading: Bool = false
     var errorMessage: String?
     private var shouldFail = false
-
+    
     init(shouldFail: Bool = false) {
         self.shouldFail = shouldFail
     }
-
+    
     func fetchAlbums(for query: String) async {
         isLoading = true
         if shouldFail {
@@ -41,7 +41,7 @@ class MockAlbumViewModel: AlbumViewModelProtocol {
         }
         isLoading = false
     }
-
+    
     func resetAlbums() {
         albums = []
     }
@@ -49,7 +49,7 @@ class MockAlbumViewModel: AlbumViewModelProtocol {
 
 class MockFavoritesViewModel: FavoritesViewModelProtocol {
     var favorites: [Album] = []
-
+    
     func loadFavorites() {
         favorites = [Album(id: "1", title: "Favorite Album", images: [])]
     }
@@ -64,19 +64,19 @@ class MockGalleryViewModel: GalleryViewModelProtocol {
 class MockAlbumCardViewModel: AlbumCardViewModelProtocol {
     var album: Album
     var isFavorite: Bool = false
-
+    
     init(album: Album) {
         self.album = album
     }
-
+    
     func toggleFavorite() {
         isFavorite.toggle()
     }
-
+    
     func albumCoverURL() -> URL {
         return album.images.first?.link ?? URL(string: "https://example.com/placeholder.jpg")!
     }
-
+    
     func albumCardText() -> String {
         let truncatedTitle = album.title.count > 45 ? "\(album.title.prefix(45))..." : album.title
         let imageCountText = album.images.count == 1 ? "1 image" : "\(album.images.count) images"

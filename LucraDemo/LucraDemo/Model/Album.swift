@@ -35,13 +35,13 @@ class Album: Identifiable, Codable {
     }
     
     func encode(to encoder: Encoder) throws {
-            var container = encoder.container(keyedBy: CodingKeys.self)
-            
-            // Manually encode each property
-            try container.encode(id, forKey: .id)
-            try container.encode(title, forKey: .title)
-            try container.encode(images, forKey: .images)
-        }
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        // Manually encode each property
+        try container.encode(id, forKey: .id)
+        try container.encode(title, forKey: .title)
+        try container.encode(images, forKey: .images)
+    }
 }
 
 /// Represents an individual image in an album, with an ID and URL link.

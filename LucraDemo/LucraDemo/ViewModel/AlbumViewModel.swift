@@ -24,13 +24,13 @@ class AlbumViewModel: AlbumViewModelProtocol {
     var albums: [Album] = []
     var isLoading: Bool = false
     var errorMessage: String?
-
+    
     init(networkingService: APIServiceProtocol = APIService()) {
         self.networkingService = networkingService
     }
     
     func fetchAlbums(for query: String)  {
-         loadAlbums(for: query)
+        loadAlbums(for: query)
     }
     
     func loadAlbums(for query: String) {

@@ -27,7 +27,7 @@ class AlbumCardViewModel: AlbumCardViewModelProtocol {
         let albumID = album.id
         let albumPredicate = #Predicate<Album> {$0.id == albumID}
         return albumPredicate
-       }
+    }
     
     init(album: Album, modelContext: ModelContext) {
         self.album = album
