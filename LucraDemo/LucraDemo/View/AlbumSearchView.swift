@@ -15,12 +15,6 @@ struct AlbumSearchView: View {
     @State private var searchTask: Task<Void, Never>? = nil
     @State private var lastQuery = ""
     
-//    let columns = [
-//        GridItem(.flexible()),
-//        GridItem(.flexible()),
-//        GridItem(.flexible())
-//    ]
-    
     var body: some View {
         NavigationView {
             ZStack {
@@ -43,7 +37,7 @@ struct AlbumSearchView: View {
                         ScrollView {
                             LazyVStack() {
                                 ForEach(viewModel.albums) { album in
-                                    NavigationLink(destination: GalleryView(album: album)) {
+                                    NavigationLink(destination: GalleryView(viewModel: GalleryViewModel(album: album))) {
                                         AlbumCardView(viewModel: AlbumCardViewModel(album: album))
                                             .cornerRadius(10)
                                             .shadow(radius: 5)
@@ -85,6 +79,8 @@ struct AlbumSearchView: View {
                         }
                     } else if newQuery.count <= 1 {
                         viewModel.resetAlbums()
+                    } else if newQuery == lastQuery {
+                        UIApplication.shared.endEditing()
                     }
                 }
                 .sheet(isPresented: $showingFavorites) {
@@ -98,6 +94,11 @@ struct AlbumSearchView: View {
                         showAlert = true
                     }
                 }
+                .scrollDismissesKeyboard(.immediately)
+                // Dismiss keyboard when tapping outside
+            }
+            .onTapGesture {
+                UIApplication.shared.endEditing()
             }
         }
     }

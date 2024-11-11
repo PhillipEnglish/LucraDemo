@@ -8,8 +8,9 @@
 import Foundation
 
 protocol AlbumCardViewModelProtocol: Observable {
-    var album: Album {get set}
+    var album: Album { get set }
     func albumCoverURL() -> URL
+    func albumCardText() -> String
 }
 
 @Observable
@@ -29,8 +30,8 @@ class AlbumCardViewModel: AlbumCardViewModelProtocol {
     }
     
     func albumCardText() -> String {
+        let truncatedTitle = album.title.count > 45 ? "\(album.title.prefix(45))..." : album.title
         let imageCountText = album.images.count == 1 ? "1 image" : "\(album.images.count) images"
-        return "\(album.title): \(imageCountText)"
+        return "\(truncatedTitle): \(imageCountText)"
     }
-    
 }

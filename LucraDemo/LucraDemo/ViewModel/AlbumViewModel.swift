@@ -11,7 +11,6 @@ import SwiftData
 /// A protocol defining the requirements for an album search view model.
 protocol AlbumViewModelProtocol: Observable {
     var albums: [Album] { get set }
-    //var searchQuery: String { get set }
     var isLoading: Bool { get set }
     var errorMessage: String? { get set }
     

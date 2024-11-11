@@ -14,3 +14,9 @@ extension Color {
     static let lucraRoyalBlue = Color(#colorLiteral(red: 0.004, green: 0.086, blue: 0.212, alpha: 1)) // #011636
     static let lucraBlueWhite = Color(#colorLiteral(red: 0.843, green: 0.894, blue: 0.945, alpha: 1)) // #d7e4f1
 }
+
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}

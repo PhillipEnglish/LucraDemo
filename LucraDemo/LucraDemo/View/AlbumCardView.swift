@@ -41,7 +41,7 @@ struct AlbumCardView: View {
             }
                 Text(viewModel.albumCardText())
                     .font(.headline)
-                    .foregroundColor(.primary)
+                    .foregroundColor(.lucraBlueWhite)
                     .lineLimit(2)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding([.leading, .trailing], 5)

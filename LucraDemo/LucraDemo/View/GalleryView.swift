@@ -7,10 +7,10 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct GalleryView: View {
-    var album: Album
-    
-    @State private var selectedImageIndex: Int = 0  // Tracks the currently displayed image
+    @State var viewModel: GalleryViewModel
     
     var body: some View {
         ZStack {
@@ -23,17 +23,17 @@ struct GalleryView: View {
             .edgesIgnoringSafeArea(.all)
             
             // Carousel view with centered images
-            TabView(selection: $selectedImageIndex) {
-                ForEach(Array(album.images.enumerated()), id: \.element.id) { index, image in
+            TabView(selection: $viewModel.selectedImageIndex) {
+                ForEach(Array(viewModel.images.enumerated()), id: \.element.id) { index, image in
                     ZoomableImageView(url: image.link)
                         .tag(index)
                         .padding()
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .always))
-            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))  // Center index indicator
+            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
         }
-        .navigationTitle(album.title)
+        .navigationTitle(viewModel.albumTitle)
         .navigationBarTitleDisplayMode(.inline)
     }
 }

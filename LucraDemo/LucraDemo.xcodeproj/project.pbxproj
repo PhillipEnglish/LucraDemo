@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2951963C2CE1AD6E00080A6B /* AlbumCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2951963B2CE1AD6E00080A6B /* AlbumCardViewModel.swift */; };
+		298472B22CE28710000A2466 /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298472B12CE28710000A2466 /* GalleryViewModel.swift */; };
 		29AFADA72CE00E4D0020F465 /* LucraDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFADA62CE00E4D0020F465 /* LucraDemoApp.swift */; };
 		29AFADA92CE00E4D0020F465 /* AlbumSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFADA82CE00E4D0020F465 /* AlbumSearchView.swift */; };
 		29AFADAB2CE00E4E0020F465 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29AFADAA2CE00E4E0020F465 /* Assets.xcassets */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		2951963B2CE1AD6E00080A6B /* AlbumCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCardViewModel.swift; sourceTree = "<group>"; };
+		298472B12CE28710000A2466 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewModel.swift; sourceTree = "<group>"; };
 		29AFADA32CE00E4D0020F465 /* LucraDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LucraDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29AFADA62CE00E4D0020F465 /* LucraDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LucraDemoApp.swift; sourceTree = "<group>"; };
 		29AFADA82CE00E4D0020F465 /* AlbumSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSearchView.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			children = (
 				29AFADDD2CE15DB40020F465 /* AlbumViewModel.swift */,
 				2951963B2CE1AD6E00080A6B /* AlbumCardViewModel.swift */,
+				298472B12CE28710000A2466 /* GalleryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				29AFADA92CE00E4D0020F465 /* AlbumSearchView.swift in Sources */,
+				298472B22CE28710000A2466 /* GalleryViewModel.swift in Sources */,
 				29AFADD62CE143490020F465 /* Extensions.swift in Sources */,
 				29AFADE02CE164190020F465 /* FavoriteAlbumsView.swift in Sources */,
 				29AFADA72CE00E4D0020F465 /* LucraDemoApp.swift in Sources */,
