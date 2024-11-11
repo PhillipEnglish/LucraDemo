@@ -61,7 +61,7 @@ struct AlbumCardView: View {
                 viewModel.toggleFavorite()
             }) {
                 Image(systemName: viewModel.isFavorite ? "star.fill" : "star")
-                    .foregroundColor(.yellow)
+                    .foregroundColor(.lucraGreen)
                     .padding(10)
             }
         }
