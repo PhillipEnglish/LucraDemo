@@ -10,7 +10,7 @@ import SwiftUI
 
 protocol GalleryViewModelProtocol: Observable {
     var albumTitle: String { get }
-    var images: [Image] { get }
+    var images: [AlbumImage] { get }
     var selectedImageIndex: Int { get set }
 }
 
@@ -27,7 +27,7 @@ class GalleryViewModel: GalleryViewModelProtocol {
         album.title
     }
     
-    var images: [Image] {
+    var images: [AlbumImage] {
         album.images
     }
 }

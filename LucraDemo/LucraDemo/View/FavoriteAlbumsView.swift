@@ -8,27 +8,40 @@
 import SwiftUI
 
 struct FavoritesListView: View {
-    var viewModel: AlbumViewModel
+    @Bindable var viewModel: AlbumViewModel
     
     var body: some View {
-        Text("hello world")
-//        NavigationView {
-//            if viewModel.fetchFavorites().isEmpty {
-//                Text("You haven't added any favorites yet")
-//                    .foregroundColor(.secondary)
-//                    .navigationTitle("Favorites")
-//            } else {
-//                List(viewModel.fetchFavorites(), id: \.id) { album in
-//                    NavigationLink(destination: GalleryView(album: album)) {
-//                        AlbumCardView(album: album)
+            NavigationView {
+                Group {
+//                    if viewModel.favorites.isEmpty {
+//                        Text("You haven't selected any favorites")
+//                            .font(.headline)
+//                            .foregroundColor(.gray)
+//                            .padding()
+//                            .multilineTextAlignment(.center)
+//                    } else {
+//                        ScrollView {
+//                            LazyVStack {
+//                                ForEach(viewModel.favorites) { album in
+//                                    NavigationLink(destination: GalleryView(viewModel: GalleryViewModel(album: album))) {
+//                                        AlbumCardView(viewModel: AlbumCardViewModel(album: album))
+//                                            .cornerRadius(10)
+//                                            .shadow(radius: 5)
+//                                    }
+//                                }
+//                            }
+//                            .padding(.horizontal)
+//                        }
 //                    }
-//                }
-//                .onAppear {
-//                    // Pre-fetch the favorites when the view appears
-//                    _ = viewModel.fetchFavorites()
-//                }
-//                .navigationTitle("Favorites")
-//            }
-//        }
+                }
+            }
+            .navigationTitle("Favorites")
+            .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                //$viewModel.fetchFavorites
+            }
     }
 }
+
+
+

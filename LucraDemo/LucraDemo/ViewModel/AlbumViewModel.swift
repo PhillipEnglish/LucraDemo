@@ -35,10 +35,6 @@ class AlbumViewModel: AlbumViewModelProtocol {
     
     func loadAlbums(for query: String) {
         isLoading = true
-        defer {
-            isLoading = false
-        }
-        
         Task {
             do {
                 let newAlbums = try await networkingService.fetchAlbums(for: query)
@@ -46,7 +42,9 @@ class AlbumViewModel: AlbumViewModelProtocol {
                     guard let firstImage = album.images.first else { return false }
                     return !firstImage.type.hasPrefix("video/")
                 }
+                isLoading = false
             } catch {
+                isLoading = false
                 errorMessage = "Failed to load albums. Please try again."
             }
         }

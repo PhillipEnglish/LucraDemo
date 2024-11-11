@@ -6,14 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AlbumSearchView: View {
     var viewModel: AlbumViewModel
     @State private var searchQuery = ""
     @State private var showingFavorites = false
     @State private var showAlert = false
-    @State private var searchTask: Task<Void, Never>? = nil
-    @State private var lastQuery = ""
+    var modelContext: ModelContext
     
     var body: some View {
         NavigationView {
@@ -38,7 +38,7 @@ struct AlbumSearchView: View {
                             LazyVStack() {
                                 ForEach(viewModel.albums) { album in
                                     NavigationLink(destination: GalleryView(viewModel: GalleryViewModel(album: album))) {
-                                        AlbumCardView(viewModel: AlbumCardViewModel(album: album))
+                                        AlbumCardView(viewModel: AlbumCardViewModel(album: album, modelContext: modelContext))
                                             .cornerRadius(10)
                                             .shadow(radius: 5)
                                     }
@@ -69,8 +69,8 @@ struct AlbumSearchView: View {
                 .onSubmit(of: .search) {
                     viewModel.fetchAlbums(for: searchQuery)
                 }
-                .onChange(of: searchQuery) { newQuery in
-                    if newQuery.count < 1 {
+                .onChange(of: searchQuery) {
+                    if searchQuery.count < 1 {
                         viewModel.resetAlbums()
                     }
                 }
@@ -96,8 +96,8 @@ struct AlbumSearchView: View {
 }
 
 
-struct AlbumSearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        AlbumSearchView(viewModel: AlbumViewModel())
-    }
-}
+//struct AlbumSearchView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AlbumSearchView(viewModel: AlbumViewModel())
+//    }
+//}

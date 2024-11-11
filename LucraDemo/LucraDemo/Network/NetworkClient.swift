@@ -13,21 +13,19 @@ class NetworkClient {
     static func fetch<T: Codable>(request: URLRequest) async throws -> T {
         let decoder = JSONDecoder()
         
-        // Debug: Check if using cached response
+        //Check if using cached response
         if let cachedResponse = cache.cachedResponse(for: request) {
-            print("Using cached response")
             return try decoder.decode(T.self, from: cachedResponse.data)
         }
         
         // Fetch from network
         let (data, response) = try await URLSession.shared.data(for: request)
-        guard let httpResponse = response as? HTTPURLResponse else {
+         guard let httpResponse = response as? HTTPURLResponse else {
             throw URLError(.badServerResponse)
         }
         
-        // Debug: Validate status code and response
+        //Validate status code and response
         guard httpResponse.statusCode == 200 else {
-            print("HTTP Error:", httpResponse.statusCode)
             throw URLError(.badServerResponse)
         }
         

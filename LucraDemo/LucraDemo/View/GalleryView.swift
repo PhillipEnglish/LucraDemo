@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct GalleryView: View {
     @State var viewModel: GalleryViewModel
     
