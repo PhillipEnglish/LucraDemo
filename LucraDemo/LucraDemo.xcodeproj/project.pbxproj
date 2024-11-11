@@ -10,6 +10,8 @@
 		2951963C2CE1AD6E00080A6B /* AlbumCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2951963B2CE1AD6E00080A6B /* AlbumCardViewModel.swift */; };
 		298472B22CE28710000A2466 /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298472B12CE28710000A2466 /* GalleryViewModel.swift */; };
 		298472B52CE2AF15000A2466 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298472B42CE2AF15000A2466 /* FavoritesViewModel.swift */; };
+		298472BA2CE2B5B9000A2466 /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298472B92CE2B5B9000A2466 /* Mocks.swift */; };
+		298472BC2CE2B6B9000A2466 /* AlbumVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298472BB2CE2B6B9000A2466 /* AlbumVMTests.swift */; };
 		29AFADA72CE00E4D0020F465 /* LucraDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFADA62CE00E4D0020F465 /* LucraDemoApp.swift */; };
 		29AFADA92CE00E4D0020F465 /* AlbumSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFADA82CE00E4D0020F465 /* AlbumSearchView.swift */; };
 		29AFADAB2CE00E4E0020F465 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29AFADAA2CE00E4E0020F465 /* Assets.xcassets */; };
@@ -48,6 +50,8 @@
 		2951963B2CE1AD6E00080A6B /* AlbumCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCardViewModel.swift; sourceTree = "<group>"; };
 		298472B12CE28710000A2466 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewModel.swift; sourceTree = "<group>"; };
 		298472B42CE2AF15000A2466 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
+		298472B92CE2B5B9000A2466 /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
+		298472BB2CE2B6B9000A2466 /* AlbumVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumVMTests.swift; sourceTree = "<group>"; };
 		29AFADA32CE00E4D0020F465 /* LucraDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LucraDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29AFADA62CE00E4D0020F465 /* LucraDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LucraDemoApp.swift; sourceTree = "<group>"; };
 		29AFADA82CE00E4D0020F465 /* AlbumSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSearchView.swift; sourceTree = "<group>"; };
@@ -94,6 +98,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		298472B82CE2B594000A2466 /* Mocking */ = {
+			isa = PBXGroup;
+			children = (
+				298472B92CE2B5B9000A2466 /* Mocks.swift */,
+			);
+			path = Mocking;
+			sourceTree = "<group>";
+		};
 		29AFAD9A2CE00E4C0020F465 = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +129,7 @@
 		29AFADA52CE00E4D0020F465 /* LucraDemo */ = {
 			isa = PBXGroup;
 			children = (
+				298472B82CE2B594000A2466 /* Mocking */,
 				29AFADE52CE18B420020F465 /* Info.plist */,
 				29AFADD02CE142C90020F465 /* Model */,
 				29AFADD12CE142D70020F465 /* View */,
@@ -142,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				29AFADB72CE00E4E0020F465 /* LucraDemoTests.swift */,
+				298472BB2CE2B6B9000A2466 /* AlbumVMTests.swift */,
 			);
 			path = LucraDemoTests;
 			sourceTree = "<group>";
@@ -335,6 +349,7 @@
 				29AFADA92CE00E4D0020F465 /* AlbumSearchView.swift in Sources */,
 				298472B22CE28710000A2466 /* GalleryViewModel.swift in Sources */,
 				29AFADD62CE143490020F465 /* Extensions.swift in Sources */,
+				298472BA2CE2B5B9000A2466 /* Mocks.swift in Sources */,
 				29AFADE02CE164190020F465 /* FavoriteAlbumsView.swift in Sources */,
 				29AFADA72CE00E4D0020F465 /* LucraDemoApp.swift in Sources */,
 				29AFADDE2CE15DB40020F465 /* AlbumViewModel.swift in Sources */,
@@ -352,6 +367,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				298472BC2CE2B6B9000A2466 /* AlbumVMTests.swift in Sources */,
 				29AFADB82CE00E4E0020F465 /* LucraDemoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
