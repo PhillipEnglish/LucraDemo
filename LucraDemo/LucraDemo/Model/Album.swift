@@ -11,11 +11,11 @@ import Foundation
 struct Album: Codable, Identifiable {
     let id: String
     let title: String
-    let images: [Image]
+    let images: [AlbumImage]
 }
 
 /// Represents an individual image in an album, with an ID and URL link.
-struct Image: Codable, Identifiable {
+struct AlbumImage: Codable, Identifiable {
     let id: String
     let link: URL
     let type: String
