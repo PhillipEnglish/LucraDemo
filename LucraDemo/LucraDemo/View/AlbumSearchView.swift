@@ -13,76 +13,95 @@ struct AlbumSearchView: View {
     @State private var showingFavorites = false
     @State private var showAlert = false
     @State private var searchTask: Task<Void, Never>? = nil
+    @State private var lastQuery = ""
     
-    let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+//    let columns = [
+//        GridItem(.flexible()),
+//        GridItem(.flexible()),
+//        GridItem(.flexible())
+//    ]
     
     var body: some View {
         NavigationView {
-            VStack {
-                if viewModel.isLoading {
-                    ProgressView("Loading albums")
-                        .padding()
-                } else if viewModel.albums.isEmpty {
-                    Text("No albums found")
-                        .foregroundColor(.blue)
-                        .padding()
-                } else {
-                    ScrollView {
-                        LazyVStack {
-                            ForEach(viewModel.albums) { album in
-                                NavigationLink(destination: GalleryView(album: album)) {
-                                    AlbumCardView(viewModel: AlbumCardViewModel(album: album))
-                                        .cornerRadius(10)
-                                        .shadow(radius: 5)
+            ZStack {
+                LinearGradient(
+                    gradient: Gradient(colors: [.lucraBlue, .lucraGreen]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .edgesIgnoringSafeArea(.all)
+                
+                VStack {
+                    if viewModel.isLoading {
+                        ProgressView("Loading albums")
+                            .padding()
+                    } else if viewModel.albums.isEmpty {
+                        Text("No albums found")
+                            .foregroundColor(.white)
+                            .padding()
+                    } else {
+                        ScrollView {
+                            LazyVStack() {
+                                ForEach(viewModel.albums) { album in
+                                    NavigationLink(destination: GalleryView(album: album)) {
+                                        AlbumCardView(viewModel: AlbumCardViewModel(album: album))
+                                            .cornerRadius(10)
+                                            .shadow(radius: 5)
+                                    }
                                 }
                             }
+                            .padding(.horizontal)
                         }
-                        .padding(.horizontal)
                     }
                 }
-            }
-            .navigationTitle("Imgur Albums")
-            .searchable(text: $searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search albums")
-            .onChange(of: searchQuery) { newQuery in
-                if newQuery.count > 1 {
-                    // Cancel any ongoing task
+                .navigationTitle("Imgur Albums")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Text("Imgur Albums")
+                            .font(.headline)
+                            .foregroundColor(Color.lucraBlueWhite)
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            showingFavorites = true
+                        }) {
+                            Text("Favorites")
+                                .foregroundColor(Color.lucraBlueWhite) // Customize the button color
+                        }
+                    }
+                }
+                .searchable(text: $searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search albums")
+                .onChange(of: searchQuery) { newQuery in
                     searchTask?.cancel()
                     
-                    // Start a new throttled search task
-                    searchTask = Task {
-                        // Wait for a short delay to throttle search requests
-                        try? await Task.sleep(nanoseconds: 300 * 1_000_000)  // 300 milliseconds
-                        if !Task.isCancelled {
-                            await viewModel.fetchAlbums(for: newQuery)
+                    if newQuery.count > 1 && newQuery != lastQuery {
+                        searchTask = Task {
+                            try? await Task.sleep(nanoseconds: 300 * 1_000_000)
+                            if !Task.isCancelled {
+                                lastQuery = newQuery
+                                viewModel.fetchAlbums(for: newQuery)
+                            }
                         }
+                    } else if newQuery.count <= 1 {
+                        viewModel.resetAlbums()
                     }
                 }
-            }
-            .toolbar {
-                Button("Favorites") {
-                    showingFavorites = true
+                .sheet(isPresented: $showingFavorites) {
+                    FavoritesListView(viewModel: viewModel)
                 }
-            }
-            .sheet(isPresented: $showingFavorites) {
-                FavoritesListView(viewModel: viewModel)
-            }
-            .alert(isPresented: $showAlert) {
-                Alert(title: Text("Error"), message: Text(viewModel.errorMessage ?? "An unknown error occurred."), dismissButton: .default(Text("OK")))
-            }
-            .onAppear {
-                if viewModel.errorMessage != nil {
-                    showAlert = true
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Error"), message: Text(viewModel.errorMessage ?? "An unknown error occurred."), dismissButton: .default(Text("OK")))
+                }
+                .onAppear {
+                    if viewModel.errorMessage != nil {
+                        showAlert = true
+                    }
                 }
             }
         }
     }
 }
-
-
 
 
 struct AlbumSearchView_Previews: PreviewProvider {

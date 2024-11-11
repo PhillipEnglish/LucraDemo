@@ -30,24 +30,26 @@ class AlbumViewModel: AlbumViewModelProtocol {
         self.networkingService = networkingService
     }
     
-    func fetchAlbums(for query: String) async {
-        await loadAlbums(for: query)
+    func fetchAlbums(for query: String)  {
+         loadAlbums(for: query)
     }
     
-    func loadAlbums(for query: String) async {
+    func loadAlbums(for query: String) {
         isLoading = true
         defer {
             isLoading = false
         }
         
-        do {
-            let newAlbums = try await networkingService.fetchAlbums(for: query)
-            albums = newAlbums.filter { album in
-                guard let firstImage = album.images.first else { return false }
-                return !firstImage.type.hasPrefix("video/")
+        Task {
+            do {
+                let newAlbums = try await networkingService.fetchAlbums(for: query)
+                albums = newAlbums.filter { album in
+                    guard let firstImage = album.images.first else { return false }
+                    return !firstImage.type.hasPrefix("video/")
+                }
+            } catch {
+                errorMessage = "Failed to load albums. Please try again."
             }
-        } catch {
-            errorMessage = "Failed to load albums. Please try again."
         }
     }
     

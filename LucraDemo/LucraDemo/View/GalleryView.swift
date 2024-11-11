@@ -13,13 +13,26 @@ struct GalleryView: View {
     @State private var selectedImageIndex: Int = 0  // Tracks the currently displayed image
     
     var body: some View {
-        TabView(selection: $selectedImageIndex) {
-            ForEach(Array(album.images.enumerated()), id: \.element.id) { index, image in
-                ZoomableImageView(url: image.link)
-                    .tag(index)
+        ZStack {
+            // Gradient background
+            LinearGradient(
+                gradient: Gradient(colors: [.lucraBlue, .lucraGreen]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .edgesIgnoringSafeArea(.all)
+            
+            // Carousel view with centered images
+            TabView(selection: $selectedImageIndex) {
+                ForEach(Array(album.images.enumerated()), id: \.element.id) { index, image in
+                    ZoomableImageView(url: image.link)
+                        .tag(index)
+                        .padding()
+                }
             }
+            .tabViewStyle(.page(indexDisplayMode: .always))
+            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))  // Center index indicator
         }
-        .tabViewStyle(.page(indexDisplayMode: .always))
         .navigationTitle(album.title)
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -35,6 +48,7 @@ struct ZoomableImageView: View {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                    .frame(width: geometry.size.width, height: geometry.size.height)
                     .scaleEffect(scale)
                     .gesture(
                         MagnificationGesture()
