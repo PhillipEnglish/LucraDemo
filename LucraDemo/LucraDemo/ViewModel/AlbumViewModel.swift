@@ -52,6 +52,7 @@ class AlbumViewModel: AlbumViewModelProtocol {
     
     func resetAlbums() {
         albums.removeAll()
+        isLoading = false
     }
 }
 
