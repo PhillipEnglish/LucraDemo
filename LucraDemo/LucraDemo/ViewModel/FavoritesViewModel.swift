@@ -35,15 +35,6 @@ class FavoritesViewModel: FavoritesViewModelProtocol {
         }
     }
     
-    private func observeFavoritesChanges() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(refreshFavorites),
-            name: .favoritesUpdated,
-            object: nil
-        )
-    }
-    
     @objc private func refreshFavorites() {
         loadFavorites()
     }

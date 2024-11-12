@@ -28,10 +28,6 @@ class APIService: APIServiceProtocol {
         var request = URLRequest(url: url)
         request.setValue("Client-ID \(APIService.clientID)", forHTTPHeaderField: "Authorization")
         
-        // Debug: Print request details
-        print("Making request to:", request.url?.absoluteString ?? "")
-        print("Authorization header:", request.value(forHTTPHeaderField: "Authorization") ?? "None")
-        
         let response: APIResponse = try await NetworkClient.fetch(request: request)
         return response.data
     }
