@@ -20,7 +20,3 @@ extension UIApplication {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
-
-extension Notification.Name {
-    static let favoritesUpdated = Notification.Name("favoritesUpdated")
-}
